@@ -6,7 +6,8 @@ int N, K;
 
 const int SZN = 10, SZM = 2000, SZS = 100;
 
-int sit[SZM], gs[SZM], dp[SZN][SZM][SZS];
+int sit[SZM], gs[SZM];
+long long dp[SZN][SZM][SZS];
 int zt_cnt = 0;
 
 void dfs(int gw, int zt, int x)
@@ -15,7 +16,7 @@ void dfs(int gw, int zt, int x)
     {
         zt_cnt++;
         sit[zt_cnt] = zt;
-        gs[N] = gw;
+        gs[zt_cnt] = gw;
         return;
     }
     dfs(gw, zt, x + 1);
@@ -34,9 +35,9 @@ int main()
         {
             for (int k = 1; k <= zt_cnt; k++)
             {
-                if (sit[j] & sit[k] || (sit[j] << 1) & sit[k] || (sit[k] << 1) & sit[j])
+                if ((sit[j] & sit[k]) || ((sit[j] << 1) & sit[k]) || ((sit[k] << 1) & sit[j]))
                     continue;
-                for (int l = gs[j]; l <= K; l++)
+                for (int l = K; l >= gs[j]; l--)
                     dp[i][j][l] += dp[i - 1][k][l - gs[j]];
             }
         }
