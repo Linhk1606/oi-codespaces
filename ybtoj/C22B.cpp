@@ -1,4 +1,4 @@
-// also ybtoj C22B
+// also poj 3974
 
 #include <iostream>
 #include <cstdio>

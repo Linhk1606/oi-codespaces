@@ -1,38 +1,36 @@
 #include <bits/stdc++.h>
 #define re register
-
 using namespace std;
-
 const int N = 1.5e4 + 1e2;
-
+int arr[N], n;
 struct star
 {
     int x, y, p;
 };
-
+inline int lowbit(int &x)
+{
+    return x & (-x);
+}
 inline void insert(int &pos_, int &val)
 {
-    
+    for (re int pos = pos_; pos <= n; pos += lowbit(pos))
+        arr[pos] += val;
 }
-
 inline int query(int &pos_)
 {
     int ans = 0;
-    for (re int pos = pos_; pos > 0; pos -= pos & -pos)
+    for (re int pos = pos_; pos > 0; pos -= lowbit(pos))
         ans += arr[pos];
     return ans;
 }
-
 inline bool cmp(star &a, star &b)
 {
     return a.x < b.x;
 }
-
 inline int read()
 {
     re int x = 0, f = 1;
     re char ch = getchar();
-    re int arr[N], n;
     while (ch < '0' || ch > '9')
     {
         if (ch == '-')
@@ -46,7 +44,6 @@ inline int read()
     }
     return x * f;
 }
-
 main()
 {
     re star stars[N], tmp[N];
@@ -69,15 +66,10 @@ main()
     }
     for (i = 1; i <= n; i++)
     {
-
-        
         mmap[query(stars[i].p)]++;
         insert(stars[i].p, I);
-        for (re int pos_ = pos_; pos—— <= n; po += pos & -pos)
-        arr[pos] += val;
     }
     for (i = 0; i < n; i++)
         printf("%d\n", mmap[i]);
-    puts("");
     return 0;
 }
